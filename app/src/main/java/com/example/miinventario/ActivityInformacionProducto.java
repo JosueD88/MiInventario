@@ -14,5 +14,9 @@ public class ActivityInformacionProducto extends AppCompatActivity {
         setContentView(R.layout.activity_informacion_producto);
     }
 
+    public void onClickVolver(View view) {
+        Intent i = new Intent(ActivityInformacionProducto.this,ActivityVistaInventario.class);
+        startActivity(i);
+    }
 
 }
