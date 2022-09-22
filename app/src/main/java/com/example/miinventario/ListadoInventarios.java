@@ -31,8 +31,8 @@ public class ListadoInventarios extends AppCompatActivity {
 
     private void llenarInventarios() {
 
-        listaInventarios.add(new InventariosVO("El inventario 1","Integrantes: 5","Propietario","05/10/2022"));
-        listaInventarios.add(new InventariosVO("El inventario 2","Integrantes: 3","Propietario","05/10/2022"));
+        listaInventarios.add(new InventariosVO("El inventario 1","5","Propietario","05/10/2022"));
+        listaInventarios.add(new InventariosVO("El inventario 2","3","Propietario","05/10/2022"));
 
     }
 }
