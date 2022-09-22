@@ -1,5 +1,6 @@
 package com.example.miinventario;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,19 +21,24 @@ public class AdapterListInventario extends RecyclerView.Adapter<AdapterListInven
     @NonNull
     @Override
     public AdapterListInventario.ViewHolderInventario onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
-        //Me falta esto
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_inventarios,null,false);
+        return new ViewHolderInventario(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterListInventario.ViewHolderInventario holder, int position) {
 
+        holder.itemNombre.setText(listaInventarios.get(position).getNombre());
+        holder.itemCantidad_Integrantes.setText(listaInventarios.get(position).getCantidad_integrantes());
+        holder.itemRol.setText(listaInventarios.get(position).getRol());
+        holder.itemFecha_Creacion.setText(listaInventarios.get(position).getFecha_creacion());
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
-        //Me falta esto
+        return listaInventarios.size();
     }
 
     public class ViewHolderInventario extends RecyclerView.ViewHolder {
