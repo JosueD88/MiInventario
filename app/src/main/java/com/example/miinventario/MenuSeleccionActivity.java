@@ -29,4 +29,9 @@ public class MenuSeleccionActivity extends AppCompatActivity {
         Intent i = new Intent(MenuSeleccionActivity.this,ListadoInventarios.class);
         startActivity(i);
     }
+
+    public void onClickUnirseAGrupo(View view) {
+        Intent i = new Intent(MenuSeleccionActivity.this,ActivityUnirseGrupo.class);
+        startActivity(i);
+    }
 }

@@ -63,6 +63,14 @@
                 android:layout_weight="1"
                 android:text="Fecha de creacion"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btGo"
+                android:layout_width="21dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onClickInventario"
+                android:text="Go" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
