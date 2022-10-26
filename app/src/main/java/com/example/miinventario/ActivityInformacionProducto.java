@@ -19,4 +19,9 @@ public class ActivityInformacionProducto extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onClickEditar(View view) {
+        Intent i = new Intent(ActivityInformacionProducto.this,ActivityEditarProducto.class);
+        startActivity(i);
+    }
+
 }
