@@ -2,20 +2,24 @@ package com.example.miinventario;
 
 public class InventariosVO {
 
+
     private String nombre;
     private String cantidad_integrantes;
     private String rol;
     private String fecha_creacion;
 
+
     public InventariosVO() {
     }
 
     public InventariosVO(String nombre, String cantidad_integrantes, String rol, String fecha_creacion) {
+
         this.nombre = nombre;
         this.cantidad_integrantes = cantidad_integrantes;
         this.rol = rol;
         this.fecha_creacion = fecha_creacion;
     }
+
 
     public String getNombre() { return nombre; }
 
