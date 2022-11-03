@@ -4,10 +4,21 @@ public class Constants {
 
     //column names of student table
     public static final String TABLE_PRODUCTOS = "productos";
-    public static final String PRODUCTO_ID = "_id";
-    public static final String PRODUCTO_NOMBRE = "nombre";
-    public static final String PRODUCTO_DESCRIPCION = "descripcion";
-    public static final String PRODUCTO_STOCK = "stock";
-    public static final String PRODUCTO_MODIFICACION = "modificacion";
+
+    //COLUMNAS
+
+    public static final String COLUMN_PRODUCTO_ID = "_id";
+
+    public static final String COLUMN_PRODUCTOS_NOMBRE = "nombres";
+    public static final String COLUMN_PRODUCTOS_DESCRIPCION = "Descripcion";
+    public static final String COLUMN_PRODUCTOS_STOCK = "Stock";
+    public static final String COLUMN_PRODUCTO_MODIFICACION = "Modificacion";
+
+
+    public static final String TITLE = "title";
+    public static final String CREATE_PRODUCTO = "create_producto";
+    public static final String UPDATE_PRODUCTO = "update_producto";
+
+
 
 }

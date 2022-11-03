@@ -8,12 +8,15 @@ public class Productos {
     private int stock;
     private String ultimaModificacion;
 
-    public Productos(int id, String nombre, String descripcion, int stock, String ultimaModificacion) {
+    public Productos(int id, String nombre, String descripcion, int stock) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.stock = stock;
-        this.ultimaModificacion = ultimaModificacion;
+    }
+
+    public Productos(int id, String nombre, int stock, String descripcion) {
+
     }
 
     public int getId() {
