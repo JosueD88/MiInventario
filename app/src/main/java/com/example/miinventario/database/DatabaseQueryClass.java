@@ -20,27 +20,30 @@ public class DatabaseQueryClass {
 
     private Context context;
 
-    public DatabaseQueryClass(Context context){
+    public DatabaseQueryClass(Context context) {
         this.context = context;
 
     }
 
 
-    public long insertProductos(Productos productos){
+    public long insertProductos(Productos productos) {
 
         long id = -1;
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
 
+        //valores de contenido
         ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.COLUMN_PRODUCTO_ID, productos.getId());
         contentValues.put(Constants.COLUMN_PRODUCTOS_NOMBRE, productos.getNombre());
         contentValues.put(Constants.COLUMN_PRODUCTOS_STOCK, productos.getStock());
         contentValues.put(Constants.COLUMN_PRODUCTOS_DESCRIPCION, productos.getDescripcion());
 
 
         try {
+            //decirle a la BD que le añada los datos
             id = sqLiteDatabase.insertOrThrow(Constants.TABLE_PRODUCTOS, null, contentValues);
-        } catch (SQLiteException e){
+        } catch (SQLiteException e) {
 
             Toast.makeText(context, "Operation failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
         } finally {
@@ -50,117 +53,86 @@ public class DatabaseQueryClass {
         return id;
     }
 
-
-    /*public Productos getProductosByRegNum(long registrationNum){
-
+    //listado
+    public List<Productos> obtenerProductos() {
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         Cursor cursor = null;
-        Productos productos = null;
+
         try {
+            cursor = sqLiteDatabase.query(Constants.TABLE_PRODUCTOS, null, null, null, null, null, null, null);
+        if(cursor!=null){
+            if ((cursor.moveToFirst()){
+                List<Productos> ListaObtenida =new ArrayList<>();
+                do{
+                    Productos productoObtenido = new Productos();
+                    //  int id=cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_PRODUCTO_ID));
+                    String nombre=cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_NOMBRE));
+                    String descripcion=cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_DESCRIPCION));
+                    int stock=cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_STOCK));
+                    productoObtenido.setNombre(nombre);
+                    productoObtenido.setDescripcion(descripcion);
+                    productoObtenido.setStock(stock);
 
-            cursor = sqLiteDatabase.query(Config.TABLE_STUDENT, null,
-                    Config.COLUMN_STUDENT_REGISTRATION + " = ? ", new String[]{String.valueOf(registrationNum)},
-                    null, null, null);
+                    ListaObtenida.add(productoObtenido);
 
-            /**
-             // If you want to execute raw query then uncomment below 2 lines. And comment out above sqLiteDatabase.query() method.
-
-             String SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s", Config.TABLE_STUDENT, Config.COLUMN_STUDENT_REGISTRATION, String.valueOf(registrationNum));
-             cursor = sqLiteDatabase.rawQuery(SELECT_QUERY, null);
-
-
-            if(cursor.moveToFirst()){
-                int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_STUDENT_ID));
-                String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_STUDENT_NAME));
-                long registrationNumber = cursor.getLong(cursor.getColumnIndex(Config.COLUMN_STUDENT_REGISTRATION));
-                String phone = cursor.getString(cursor.getColumnIndex(Config.COLUMN_STUDENT_PHONE));
-                String email = cursor.getString(cursor.getColumnIndex(Config.COLUMN_STUDENT_EMAIL));
-
-                student = new Student(id, name, registrationNumber, phone, email);
+                }while(cursor.moveToNext());
+                return ListaObtenida;
             }
-        } catch (Exception e){
-            Logger.d("Exception: " + e.getMessage());
-            Toast.makeText(context, "Operation failed", Toast.LENGTH_SHORT).show();
-        } finally {
-            if(cursor!=null)
-                cursor.close();
-            sqLiteDatabase.close();
+
         }
 
-        return student;
-    }*/
+        }catch (SQLiteException e){
+            Toast.makeText(context, "error al listar:" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
-    /*public long updateStudentInfo(Student student){
-
-        long rowCount = 0;
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Config.COLUMN_STUDENT_NAME, student.getName());
-        contentValues.put(Config.COLUMN_STUDENT_REGISTRATION, student.getRegistrationNumber());
-        contentValues.put(Config.COLUMN_STUDENT_PHONE, student.getPhoneNumber());
-        contentValues.put(Config.COLUMN_STUDENT_EMAIL, student.getEmail());
-
-        try {
-            rowCount = sqLiteDatabase.update(Config.TABLE_STUDENT, contentValues,
-                    Config.COLUMN_STUDENT_ID + " = ? ",
-                    new String[] {String.valueOf(student.getId())});
-        } catch (SQLiteException e){
-            Logger.d("Exception: " + e.getMessage());
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         } finally {
             sqLiteDatabase.close();
         }
+        return new ArrayList<Productos>();
 
-        return rowCount;
     }
 
-    public long deleteStudentByRegNum(long registrationNum) {
-        long deletedRowCount = -1;
+
+    //-----------------------------------------------------------
+
+
+    public  Productos obtenerProducto(String producto){
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
+        List<Productos> ListaObtenida = new ArrayList<>();
+
+        Cursor cursor = null;
 
         try {
-            deletedRowCount = sqLiteDatabase.delete(Config.TABLE_STUDENT,
-                    Config.COLUMN_STUDENT_REGISTRATION + " = ? ",
-                    new String[]{ String.valueOf(registrationNum)});
-        } catch (SQLiteException e){
-            Logger.d("Exception: " + e.getMessage());
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            cursor = sqLiteDatabase.query(Constants.TABLE_PRODUCTOS, null, Constants.COLUMN_PRODUCTO_ID + " = ? "
+                    new String[]{String.valueOf(producto)}, null, null, null, null, null);
+
+            Productos productoObtenido = new Productos();
+
+                if (cursor != null && cursor.moveToFirst()){
+                    //int id = cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_PRODUCTO_ID));
+                    String nombreP = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_NOMBRE));
+                    String descripcionP = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_DESCRIPCION));
+                    int stockP = cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_PRODUCTOS_STOCK));
+                    productoObtenido.setNombre(nombreP);
+                    productoObtenido.setDescripcion(descripcionP);
+                    productoObtenido.setStock(stockP);
+
+                    ListaObtenida.add(productoObtenido);
+
+                }
+                    return ListaObtenida;
+
+
+            }
+
+        }catch (SQLiteException e){
+            Toast.makeText(context, "error al listar:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
         } finally {
             sqLiteDatabase.close();
         }
-
-        return deletedRowCount;
     }
-
-    public boolean deleteAllStudents(){
-        boolean deleteStatus = false;
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-
-        try {
-            //for "1" delete() method returns number of deleted rows
-            //if you don't want row count just use delete(TABLE_NAME, null, null)
-            sqLiteDatabase.delete(Config.TABLE_STUDENT, null, null);
-
-            long count = DatabaseUtils.queryNumEntries(sqLiteDatabase, Config.TABLE_STUDENT);
-
-            if(count==0)
-                deleteStatus = true;
-
-        } catch (SQLiteException e){
-            Logger.d("Exception: " + e.getMessage());
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-        } finally {
-            sqLiteDatabase.close();
-        }
-
-        return deleteStatus;
-    }
-         */
-
 }
+

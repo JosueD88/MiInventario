@@ -14,6 +14,7 @@ import com.example.miinventario.models.Productos;
 
 public class ActivityCrearProducto extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

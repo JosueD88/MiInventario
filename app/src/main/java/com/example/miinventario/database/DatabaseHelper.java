@@ -3,6 +3,7 @@ package com.example.miinventario.database;
 
 import static com.example.miinventario.util.Constants.*;
 
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
+    //Constructor
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -41,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COLUMN_PRODUCTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + COLUMN_PRODUCTOS_NOMBRE + " TEXT NOT NULL, "
                     + COLUMN_PRODUCTOS_DESCRIPCION + " TEXT, " //nullable
-                    + COLUMN_PRODUCTOS_STOCK + " INTEGER NOT NULL UNIQUE, "
+                    + COLUMN_PRODUCTOS_STOCK + " INTEGER NOT NULL, "
                     + COLUMN_PRODUCTO_MODIFICACION + " TEXT " //nullable
                     + ")";
 

@@ -36,7 +36,6 @@
         android:layout_height="51dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Mi Nuevo Nombre"
         android:textColorHint="#434242"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

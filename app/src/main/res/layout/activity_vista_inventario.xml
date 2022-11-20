@@ -99,4 +99,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="387dp"
+        android:layout_height="399dp"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="316dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
